@@ -31,6 +31,8 @@ private:
 
 	FExecStatus SetCameraLocation(const TArray<FString>& Args);
 
+	FExecStatus SetCameraFOV(const TArray<FString>& Args);
+
 	FExecStatus GetCameraRotation(const TArray<FString>& Args);
 
 	FExecStatus SetCameraRotation(const TArray<FString>& Args);

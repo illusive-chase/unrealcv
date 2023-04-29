@@ -105,6 +105,24 @@ FExecStatus FCameraHandler::SetCameraLocation(const TArray<FString>& Args)
 	return FExecStatus::OK();
 }
 
+FExecStatus FCameraHandler::SetCameraFOV(const TArray<FString>& Args)
+{
+	FExecStatus Status = FExecStatus::OK();
+	UFusionCamSensor* FusionCamSensor = GetCamera(Args, Status);
+	if (!IsValid(FusionCamSensor)) return Status; 
+
+	// Should I set the component fov or the actor fov?
+	if (Args.Num() != 2) return FExecStatus::InvalidArgument; // ID, FOV
+
+	float fov = FCString::Atof(*Args[1]);
+
+	if (Args[0] == "0") return FExecStatus::NotImplemented;
+
+	FusionCamSensor->SetSensorFOV(fov);
+
+	return FExecStatus::OK();
+}
+
 FExecStatus FCameraHandler::GetCameraRotation(const TArray<FString>& Args)
 {
 	FExecStatus Status = FExecStatus::OK();
@@ -523,6 +541,12 @@ void FCameraHandler::RegisterCommands()
 		"vset /camera/[uint]/location [float] [float] [float]",
 		FDispatcherDelegate::CreateRaw(this, &FCameraHandler::SetCameraLocation),
 		"Set sensor to location [x, y, z]"
+	);
+
+	CommandDispatcher->BindCommand(
+		"vset /camera/[uint]/hfov [float]",
+		FDispatcherDelegate::CreateRaw(this, &FCameraHandler::SetCameraFOV),
+		"Set camera horizontal field of view"
 	);
 
 	/** This is different from SetLocation (which is teleport) */
