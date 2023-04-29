@@ -111,7 +111,7 @@ FUnrealcvServer::~FUnrealcvServer()
 UWorld* FUnrealcvServer::GetWorld()
 {
 	UWorld* WorldPtr = nullptr;
-#if WITH_EDITOR
+#if 0
 	UEditorEngine* EditorEngine = Cast<UEditorEngine>(GEngine);
 	if (IsValid(EditorEngine))
 	{
@@ -152,7 +152,7 @@ UWorld* FUnrealcvServer::GetGameWorld()
 {
 	UWorld* World = nullptr;
 	// The correct way to get GameWorld;
-#if WITH_EDITOR
+#if 0
 	UEditorEngine* EditorEngine = Cast<UEditorEngine>(GEngine);
 	if (EditorEngine != nullptr)
 	{
